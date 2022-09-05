@@ -1,0 +1,11 @@
+package casestudy;
+
+public class search {
+	public static void servicesearch()
+	{
+	System.out.println("1.Firstname");
+	System.out.println("2.SSN");
+	System.out.println("3.Email");
+	
+	}
+}

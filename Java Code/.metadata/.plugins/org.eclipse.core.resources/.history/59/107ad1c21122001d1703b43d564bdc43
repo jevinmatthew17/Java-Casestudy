@@ -1,0 +1,99 @@
+package casestudy;
+import java.io.*;
+import java.sql.*;
+
+public class contact_info {
+	   public static void main(String[] args) {
+	         String jdbcURL = "jdbc:mysql://localhost:3306/case_study";
+	         String username = "root";
+	         String password = "Mountain@2000";
+	         String csvFilePath = "C:\\Users\\LJevin\\Downloads\\Java_Case_Study.csv";
+	              
+	         Connection connection = null;
+
+
+
+	        try {
+
+
+
+	            connection = DriverManager.getConnection(jdbcURL, username, password);
+	             connection.setAutoCommit(false);
+
+
+
+	            String sql1 = "INSERT INTO contact_info (Person_ID, Email,Address,Phone_no) VALUES (?, ?, ?, ?)";
+	             PreparedStatement statement = connection.prepareStatement(sql1);
+
+
+
+	            BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
+	             String lineText = null;
+
+
+
+
+	             lineReader.readLine(); // skip header line
+
+
+
+	            while ((lineText = lineReader.readLine()) != null) {
+	                 String[] data = lineText.split(",");
+	                 String person_id = data[0];
+	                 String email = data[3];
+	                 String address = data[5];
+	                 
+	                 String phone_number = data.length == 12 ? data[11] : "";
+
+
+
+	                statement.setString(1, person_id);
+	                 statement.setString(2, email);
+	                 statement.setString(3, address);
+	                 
+	                 statement.setString(4, phone_number);
+	                 
+	                 
+
+
+
+	                statement.addBatch();
+
+
+
+	               
+	                     statement.executeBatch();
+	                 
+	             }
+
+
+
+	            lineReader.close();
+
+
+
+	            // execute the remaining queries
+	             statement.executeBatch();
+
+
+
+	            connection.commit();
+	             connection.close();
+
+
+
+	        } catch (IOException ex) {
+	             System.err.println(ex);
+	         } catch (SQLException ex) {
+	             ex.printStackTrace();
+
+
+
+	            try {
+	                 connection.rollback();
+	             } catch (SQLException e) {
+	                 e.printStackTrace();
+	             }
+	         }
+	    }
+}

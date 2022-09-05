@@ -1,0 +1,92 @@
+package casestudy;
+import java.sql.*;
+import java.util.Scanner;
+
+public class create {
+	public static void servicecreate()
+	{
+	
+		String jdbcURL = "jdbc:mysql://localhost:3306/case_study";
+        String username = "root";
+        String password = "Mountain@2000";
+
+			Connection con = null;
+
+			
+			try {
+				
+				 con = DriverManager.getConnection(jdbcURL, username, password);
+	             con.setAutoCommit(false);
+				 
+				Class.forName("com.mysql.cj.jdbc.Driver");
+	
+				try {
+
+					
+					Statement st = con.createStatement();
+					
+					System.out.println("Enter the following Details");
+			         Scanner sc= new Scanner(System.in);
+			         System.out.println("Enter Person ID");
+			         int pid=sc.nextInt();
+			         String spid="'"+pid +"'";
+			         System.out.println("Enter First Name");
+			         String fname=sc.next();
+			         String sfname="'"+fname +"'";
+			         System.out.println("Enter Last Name");
+			         String lname=sc.next();
+			         String slname="'"+lname +"'";
+			         System.out.println("Enter Gender(Male/Female)");
+			         String gender=sc.next();
+			         String sgender="'"+gender +"'";
+			         System.out.println("Enter SSN");
+			         String ssn=sc.next();
+			         String sssn="'"+ssn +"'";
+			         String sql="insert into Person values( %s,%s,%s,%s,%s)";
+			         PreparedStatement statement=con.prepareStatement(sql); 
+			          
+					
+					
+					statement.setInt(1, pid);
+			         statement.setString(2, sfname);
+			         statement.setString(3, slname);
+			         statement.setString(4, sgender);
+			         statement.setString(5, sssn);
+			         System.out.println(sql);
+			         //statement.executeUpdate(sql);
+			         statement.addBatch();
+			         statement.executeBatch();
+			         System.out.println(" records inserted in person"); 
+						
+			         
+
+			           // create_contact obj =new create_contact();
+			           // create_contact.contact();
+								
+			           // create_vehicle obj1 =new create_vehicle();
+			           // create_vehicle.vehicle();
+			            
+					//con.close();
+				}
+
+				
+				catch (SQLException s) {
+
+					
+					System.out.println(
+						"SQL statement is not executed!");
+				}
+
+				
+			}
+			catch (Exception e) {
+
+				
+				e.printStackTrace();
+			}
+		
+	
+
+	}
+
+}

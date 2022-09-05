@@ -1,0 +1,62 @@
+package casestudy;
+
+import java.io.*;
+import java.sql.*;
+import java.util.Scanner;
+
+public class export {
+	public static void serviceexport() 
+	{
+		String jdbcURL = "jdbc:mysql://localhost:3306/case_study";
+	    String username = "root";
+	    String password = "Mountain@2000";
+
+			Connection con = null;
+
+			Scanner sc=new Scanner(System.in);
+			int cou;
+			String su;
+			do {
+				 System.out.println("Export Data Service initiated !\n");
+			     System.out.println("1 Car Make Details");
+			     System.out.println("2 Exit");
+			     cou=sc.nextInt();
+			     switch(cou) {
+			     case 1:
+			    	 try {
+			    		 System.out.println("Enter Your Car Make Model");
+			    		 String s1=sc.next();
+			    		 File obj=new File(""+s1+".txt");
+			    		 if(obj.createNewFile()) {
+			    			 System.out.println("File Created is "+obj.getName());
+			    			 
+			    		 }else {
+			    			 System.out.println("File already exists");
+			    		 }
+			    		 FileWriter writer=new FileWriter(""+s1+".txt");
+			    		 con=DriverManager.getConnection(jdbcURL,username,password);
+			    		con.setAutoCommit(false);
+			    		String sql1 = "Select person.First_name,person.Last_name,contact_info.Email_address,contact_info.Address,contact_info.Phone_number from person inner join contact_info on person.Person_ID=contact_info.Person_ID inner join vehicle_info on person.Person_ID=vehicle_info.Person_ID where vehicle_info.Car_make="+ " '"+s1+"'";
+			    		PreparedStatement statement= con.prepareStatement(sql1);
+			    		ResultSet rs= statement.executeQuery(sql1);
+			    		while(rs.next()) {
+			    			String fname=rs.getString(1);
+		                    String lname=rs.getString(2);
+		                    String email=rs.getString(3);
+		                    String address=rs.getString(4);
+		                    String phone_no=rs.getString(5);
+		                    System.out.println( " "+fname +" | "+ " "+lname +" | "+ " "+ address+ " | "+" "+email +" | "+ " "+phone_no);
+		                    writer.write(" "+fname +" | "+ " "+lname +" | "+ " "+address+ " | "+" "+email  +" | "+ " "+phone_no+" \n");
+			    		}
+			    		writer.close();
+			    		rs.close();
+			    		statement.close();
+			    	 }catch(Exception e) {
+			    		 e.printStackTrace();
+			    	 }
+			     
+			     }
+			}while(cou!=2);
+	}
+	
+}

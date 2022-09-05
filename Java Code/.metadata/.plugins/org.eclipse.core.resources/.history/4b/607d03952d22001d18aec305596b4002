@@ -1,0 +1,53 @@
+package casestudy;
+import java.sql.*;
+
+public class phone_no {
+	public static void sphone()
+	{
+	String jdbcURL = "jdbc:mysql://localhost:3306/case_study";
+    String username = "root";
+    String password = "Mountain@2000";
+
+		Connection con = null;
+
+		
+		try {
+			
+			 con = DriverManager.getConnection(jdbcURL, username, password);
+             con.setAutoCommit(false);
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Statement st = con.createStatement();
+				ResultSet res = st.executeQuery(
+					"SELECT *FROM "
+					+ "person"
+					+ " NATURAL JOIN "
+					+ "contact_info");
+
+				//int a=0;
+				
+				while (res.next()) {
+						String phone_no = res.getString("phone_no");
+						//a++;
+					
+					System.out.format("%10s\n",phone_no);
+				}
+
+
+	        
+				con.close();
+			
+
+			
+			
+
+			
+		}
+		catch (Exception e) {
+
+			
+			e.printStackTrace();
+		}
+	}
+
+}

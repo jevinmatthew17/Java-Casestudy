@@ -1,0 +1,30 @@
+package casestudy;
+
+import java.util.Scanner;
+
+public class controller {
+	public static void main(String[] args)
+	{
+		System.out.println("Enter Ur Choice");
+		System.out.println("1.Search");
+		System.out.println("2.create");
+		System.out.println("3.Export");
+		Scanner sc= new Scanner(System.in);
+		
+		int option=sc.nextInt();
+		
+		
+		switch(option)
+		{
+		case 1: 
+			    search obj = new search();
+				 search.servicesearch();
+				 break;
+		default:
+				System.out.println("Not Found");
+			
+		}
+		
+		
+	}
+}

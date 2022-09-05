@@ -1,0 +1,64 @@
+package casestudy;
+import java.sql.*;
+
+public class ssn {
+	public static void sssn()
+	{
+	String jdbcURL = "jdbc:mysql://localhost:3306/case_study";
+    String username = "root";
+    String password = "Mountain@2000";
+
+		Connection con = null;
+
+		
+		try {
+			
+			 con = DriverManager.getConnection(jdbcURL, username, password);
+             con.setAutoCommit(false);
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			
+
+			
+			
+			try {
+
+				
+				Statement st = con.createStatement();
+				
+				ResultSet res = st.executeQuery(
+					"SELECT *FROM "
+					+ "person");
+
+			
+
+				while (res.next()) {
+						String ssn = res.getString("ssn");
+
+					// Beautification of output
+					System.out.format("%20s\n",ssn);
+				}
+
+
+	        
+				con.close();
+			}
+
+			
+			catch (SQLException s) {
+
+				
+				System.out.println(
+					"SQL statement is not executed!");
+			}
+
+			
+		}
+		catch (Exception e) {
+
+			
+			e.printStackTrace();
+		}
+	}
+}

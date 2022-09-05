@@ -1,0 +1,66 @@
+package casestudy;
+import java.sql.*;
+
+public class email {
+	public static void semail()
+		{
+		String jdbcURL = "jdbc:mysql://localhost:3306/case_study";
+        String username = "root";
+        String password = "Mountain@2000";
+
+			Connection con = null;
+
+			
+			try {
+				
+				 con = DriverManager.getConnection(jdbcURL, username, password);
+	             con.setAutoCommit(false);
+				
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				
+
+				
+				
+				try {
+
+					
+					Statement st = con.createStatement();
+					
+					ResultSet res = st.executeQuery(
+						"SELECT *FROM "
+						+ "person"
+						+ " NATURAL JOIN "
+						+	"contact_info");
+
+				
+
+					while (res.next()) {
+							String email = res.getString("email");
+
+				
+						System.out.format("%20s\n",email);
+					}
+
+
+		        
+					con.close();
+				}
+
+				
+				catch (SQLException s) {
+
+					
+					System.out.println(
+						"SQL statement is not executed!");
+				}
+
+				
+			}
+			catch (Exception e) {
+
+				
+				e.printStackTrace();
+			}
+		}
+	}

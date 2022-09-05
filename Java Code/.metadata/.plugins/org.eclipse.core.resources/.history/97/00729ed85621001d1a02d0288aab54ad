@@ -1,0 +1,70 @@
+package casestudy;
+import java.sql.*;
+import java.util.Scanner;
+
+public class name {
+	public static void sname()
+	{
+		String jdbcURL = "jdbc:mysql://localhost:3306/case_study";
+        String username = "root";
+        String password = "Mountain@2000";
+
+			Connection con = null;
+
+			
+			try {
+				
+				 con = DriverManager.getConnection(jdbcURL, username, password);
+	             con.setAutoCommit(false);
+				
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				
+
+				
+				
+				try {
+
+					
+					Statement st = con.createStatement();
+					
+					Scanner sc= new Scanner(System.in);
+					System.out.println("Enter the First Name");
+					
+					ResultSet res = st.executeQuery(
+						"SELECT *FROM "
+						+ "person");
+
+				
+
+					while (res.next()) {
+							String first_name = res.getString("first_name");
+							String last_name = res.getString("last_name");
+
+						// Beautification of output
+						System.out.format("%10s %10s\n",first_name,last_name);
+					}
+
+
+		        
+					con.close();
+				}
+
+				
+				catch (SQLException s) {
+
+					
+					System.out.println(
+						"SQL statement is not executed!");
+				}
+
+				
+			}
+			catch (Exception e) {
+
+				
+				e.printStackTrace();
+			}
+		
+	}
+}

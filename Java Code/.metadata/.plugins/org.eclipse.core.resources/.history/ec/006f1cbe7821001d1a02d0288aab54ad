@@ -1,0 +1,9 @@
+package casestudy;
+
+public class create_vehicle {
+
+	public static void vehicle()
+	{
+		
+	}
+}

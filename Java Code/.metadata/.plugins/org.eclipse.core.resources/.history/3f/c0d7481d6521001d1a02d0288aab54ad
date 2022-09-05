@@ -1,0 +1,81 @@
+package casestudy;
+import java.sql.*;
+import java.util.Scanner;
+
+public class ssn {
+	public static void sssn()
+	{
+	String jdbcURL = "jdbc:mysql://localhost:3306/case_study";
+    String username = "root";
+    String password = "Mountain@2000";
+
+		Connection con = null;
+
+		
+		try {
+			
+			 con = DriverManager.getConnection(jdbcURL, username, password);
+             con.setAutoCommit(false);
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			
+
+			
+			
+			try {
+
+				
+				Statement st = con.createStatement();
+				
+				Scanner sc= new Scanner(System.in);
+				
+				System.out.println("Enter SSN");
+				String ssn_no=sc.next();
+				String service_ssn = "'"+ssn_no+"'";
+				
+				
+				String data = String.format("SELECT * FROM person join contact_info on person.person_id = contact_info.person_id where ssn = %s ;",service_ssn);
+				PreparedStatement ps = con.prepareStatement(data);
+				//System.out.println(data.toString());
+				ResultSet res = st.executeQuery(data.toString());
+
+			
+			
+				
+				 while (res.next()) {
+					 	String person_id = res.getString("Person_id");
+						String first_name = res.getString("first_name");
+						String last_name = res.getString("last_name");
+						String gender = res.getString("gender");
+						String ssn = res.getString("ssn");
+						String email = res.getString("email");
+						String address = res.getString("address");
+						String phone_no = res.getString("phone_no");
+
+					// Beautification of output
+					System.out.format("%5s %10s %10s %10s %10s %20s  %10s %10s\n",person_id,first_name,last_name,gender,ssn,email,address,phone_no);
+				}
+
+
+	        
+				con.close();
+			}
+
+			
+			catch (SQLException s) {
+
+				
+				System.out.println(
+					"SQL statement is not executed!");
+			}
+
+			
+		}
+		catch (Exception e) {
+
+			
+			e.printStackTrace();
+		}
+	}
+}

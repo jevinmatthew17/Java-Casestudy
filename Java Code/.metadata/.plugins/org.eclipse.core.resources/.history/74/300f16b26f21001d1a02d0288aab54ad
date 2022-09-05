@@ -1,0 +1,9 @@
+package casestudy;
+
+public class create_contact {
+	public static void contact()
+	{
+		
+	}
+
+}

@@ -1,0 +1,79 @@
+package casestudy;
+import java.sql.*;
+import java.util.Scanner;
+
+public class create {
+	public static void servicecreate()
+	{
+	
+		String jdbcURL = "jdbc:mysql://localhost:3306/case_study";
+        String username = "root";
+        String password = "Mountain@2000";
+
+			Connection con = null;
+
+			
+			try {
+				
+				 con = DriverManager.getConnection(jdbcURL, username, password);
+	             con.setAutoCommit(false);
+				 
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				System.out.println("Enter the following Details");
+		         Scanner sc= new Scanner(System.in);
+		         System.out.println("Enter your Person ID:");
+		         int pid=sc.nextInt();
+		         String rpid="'"+pid +"'";
+		         System.out.println("Enter your First Name:");
+		         String fname=sc.next();
+		         String rfname="'"+fname +"'";
+		         System.out.println("Enter your Last Name:");
+		         String lname=sc.next();
+		         String rlname="'"+lname +"'";
+		         System.out.println("Enter your Gender(Male/Female):");
+		         String gender=sc.next();
+		         String rgender="'"+gender +"'";
+		         System.out.println("Enter your SSN(xxx-xx-xxxx format):");
+		         String ssn=sc.next();
+		         String rssn="'"+ssn +"'";
+		         String sql="insert into Person values(?,?,?,?,?)";
+		         PreparedStatement statement=con.prepareStatement(sql); 
+		         
+
+				
+				
+				try {
+
+					
+					Statement st = con.createStatement();
+					
+					 
+					
+					
+						
+								
+					con.close();
+				}
+
+				
+				catch (SQLException s) {
+
+					
+					System.out.println(
+						"SQL statement is not executed!");
+				}
+
+				
+			}
+			catch (Exception e) {
+
+				
+				e.printStackTrace();
+			}
+		
+	
+
+	}
+
+}

@@ -1,0 +1,17 @@
+package casestudy;
+
+import java.util.Scanner;
+
+public class search {
+	public static void servicesearch()
+	{
+	System.out.println("1.Firstname");
+	Scanner sc= new Scanner(System.in);
+	name obj = new name();
+	name.semail();
+	
+	System.out.println("2.SSN");
+	System.out.println("3.Email");
+	
+	}
+}

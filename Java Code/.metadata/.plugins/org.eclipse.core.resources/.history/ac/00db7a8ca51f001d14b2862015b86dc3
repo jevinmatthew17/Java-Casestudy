@@ -1,0 +1,27 @@
+package casestudy;
+
+import java.util.Scanner;
+
+public class search {
+	public static void servicesearch()
+	{
+	System.out.println("1.Firstname");
+	System.out.println("2.SSN");
+	System.out.println("3.Email");
+	Scanner sc= new Scanner(System.in);
+	int option=sc.nextInt();
+	
+	
+	switch(option)
+	{
+	case 1: 
+			email obj = new email();
+			email.semail();
+			 break;
+	default:
+			System.out.println("Not Found");
+		
+	}
+	
+	}
+}

@@ -1,0 +1,55 @@
+package casestudy;
+
+import java.util.Scanner;
+
+public class controller {
+	public static void main(String[] args)
+	{
+		System.out.println("Java Case Study");
+		System.out.println("1. For insert Records 2.To Do other functions");
+		Scanner a= new Scanner(System.in);
+		int choice = a.nextInt();
+		
+		if(choice==1)
+		{
+		System.out.println("Inserting Records");
+			insert obj = new insert();
+			insert.insertion();
+		}	
+		
+		{
+		System.out.println("Enter Ur Choice");
+		System.out.println("1.Search");
+		System.out.println("2.create");
+		System.out.println("3.Export");
+		System.out.println("4.Exit");
+		
+		Scanner sc= new Scanner(System.in);
+		int option=sc.nextInt();
+		
+		
+		switch(option)
+		{
+		case 1: 
+			    search obj1 = new search();
+				search.servicesearch();
+				break;
+		case 2: 
+				create obj2 = new create();
+				create.servicecreate();
+		    	break;
+		case 3: 
+			    export obj3 = new export();
+			   export.serviceexport();
+	    		break;
+		case 4:
+				System.out.println("Exited Succesfully");
+				break;
+		default:
+				System.out.println("Not Found");
+			
+		}
+		
+		}
+	}
+}

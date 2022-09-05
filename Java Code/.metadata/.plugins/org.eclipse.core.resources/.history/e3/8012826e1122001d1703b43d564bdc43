@@ -1,0 +1,11 @@
+package casestudy;
+
+public class insert {
+
+		public static void insertion()
+		{
+			person obj = new person();
+			person.insertperson();
+		}
+}
+

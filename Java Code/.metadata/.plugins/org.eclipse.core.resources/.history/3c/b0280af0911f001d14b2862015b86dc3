@@ -1,0 +1,69 @@
+package casestudy;
+import java.sql.*;
+
+public class phone_no {
+	public static void main(String[] args)
+	{
+	String jdbcURL = "jdbc:mysql://localhost:3306/case_study";
+    String username = "root";
+    String password = "Mountain@2000";
+
+		Connection con = null;
+
+		
+		try {
+			
+			 con = DriverManager.getConnection(jdbcURL, username, password);
+             con.setAutoCommit(false);
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			
+			
+			
+			try {
+
+				
+				Statement st = con.createStatement();
+				
+				ResultSet res = st.executeQuery(
+					"SELECT *FROM "
+					+ "person"
+					+ " NATURAL JOIN "
+					+ "contact_info");
+
+				int a=0;
+				
+				while (res.next()) {
+						String phone_no = res.getString("phone_no");
+						a++;
+					// Beautification of output
+					System.out.format("%d %10s\n",a,phone_no);
+				}
+
+
+	        
+				con.close();
+			}
+
+			// Catch block to handle DB exceptions
+			catch (SQLException s) {
+
+				// If there is error in SQL query, this
+				// exception occurs
+				System.out.println(
+					"SQL statement is not executed!");
+			}
+
+			// Catch block to handle generic java
+			// exceptions
+		}
+		catch (Exception e) {
+
+			// General exception apart from SQLException are
+			// caught here
+			e.printStackTrace();
+		}
+	}
+
+}

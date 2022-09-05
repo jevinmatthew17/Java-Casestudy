@@ -1,0 +1,6 @@
+package casestudy;
+
+public class search {
+	System.out.println("1.Firstname");
+
+}

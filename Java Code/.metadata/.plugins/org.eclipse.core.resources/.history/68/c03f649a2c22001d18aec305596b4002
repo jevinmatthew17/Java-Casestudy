@@ -1,0 +1,16 @@
+package casestudy;
+
+public class insert {
+
+		public static void insertion()
+		{
+			person obj = new person();
+			person.insertperson();
+			System.out.println("inserted Person Table \n");
+			
+			contact_info obj1= new contact_info();
+			contact_info.insertcontact();
+			System.out.println("inserted Contact Table \n");
+		}
+}
+

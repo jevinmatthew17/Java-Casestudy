@@ -1,0 +1,10 @@
+package casestudy;
+
+public class insert {
+
+		public static void insertion()
+		{
+			
+		}
+}
+

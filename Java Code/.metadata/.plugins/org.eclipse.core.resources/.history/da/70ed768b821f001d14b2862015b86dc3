@@ -1,0 +1,106 @@
+package casestudy;
+import java.io.*;
+import java.sql.*;
+public class email {
+
+	
+		public static void main(String[] args)
+		{
+
+			Connection con = null;
+
+			// Try block to check exceptions
+			try {
+				// Step 2: Load and register drivers
+
+				// Loading driver
+				// Jars(relevant) or mysql-connector-java-8.0.22
+				// in build path of project
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				// Registering driver
+
+				// test is database name here
+				// serverTimezone=UTC, if not provided we will
+				// have java.sql.SQLException
+				// Credentials here are root/""
+				// i.e. username is root
+				// password is ""
+
+				// Step 3: Establishing a connection
+				con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/test?serverTimezone=UTC",
+					"root", "");
+
+				// Try block to check java exceptions
+				try {
+
+					// Step 4: Write a statement
+					// Join
+					Statement st = con.createStatement();
+					// Combining two tables in query using
+					// NATURAL JOIN studentsdetails columns :
+					// Name,caste,NeetMarks,gender
+					// studentspersonaldetails columns :
+					// Name,Address,email
+
+					// In both tables, connecting columns are
+					// Name Name is taken Here res will have the
+					// data from
+					// both studentsdetails and
+					// studentspersonaldetails whenever "Name"
+					// in both tables are matched join
+					ResultSet res = st.executeQuery(
+						"SELECT *FROM "
+						+ "studentsdetails"
+						+ " NATURAL JOIN "
+						+ "studentspersonaldetails");
+
+					// Step 5: Execute the query
+					System.out.println(" StuName"
+									+ " Gender"
+									+ "	 Caste "
+									+ "Neet Marks"
+									+ "	 Email");
+
+					// Step 6: Process the statements
+					// Iterate the resultset and retrieve the
+					// required fields
+					while (res.next()) {
+						String name = res.getString("Name");
+						String gender = res.getString("gender");
+						String caste = res.getString("caste");
+						String neetMarks
+							= res.getString("NeetMarks");
+						String email = res.getString("email");
+
+						// Beautification of output
+						System.out.format(
+							"%10s%10s%10s%10s%20s\n", name,
+							gender, caste, neetMarks, email);
+					}
+
+					// Step 7: Close the connection
+					con.close();
+				}
+
+				// Catch bloack to handle DB exceptions
+				catch (SQLException s) {
+
+					// If there is error in SQL query, this
+					// exception occurs
+					System.out.println(
+						"SQL statement is not executed!");
+				}
+
+				// Catch bloack to handle generic java
+				// exceptions
+			}
+			catch (Exception e) {
+
+				// General exception apart from SQLException are
+				// caught here
+				e.printStackTrace();
+			}
+		}
+	}
